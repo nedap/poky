@@ -27,7 +27,7 @@ SYSTEMD_SERVICE_${PN} = "opkg-configure.service"
 target_localstatedir := "${localstatedir}"
 OPKGLIBDIR = "${target_localstatedir}/lib"
 
-PACKAGECONFIG ??= "libsolv"
+PACKAGECONFIG ??= ""
 
 PACKAGECONFIG[gpg] = "--enable-gpg,--disable-gpg,gpgme libgpg-error,gnupg"
 PACKAGECONFIG[curl] = "--enable-curl,--disable-curl,curl"
