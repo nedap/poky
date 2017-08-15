@@ -42,7 +42,6 @@ python license_create_manifest() {
         return 0
 
     pkg_dic = {}
-
     for pkg in sorted(image_list_installed_packages(d)):
         pkg_info = os.path.join(d.getVar('PKGDATA_DIR', True),
                                 'runtime-reverse', pkg)
@@ -50,7 +49,6 @@ python license_create_manifest() {
         if os.path.islink(pkg_info):
             pkg_name = os.path.basename(os.readlink(pkg_info))
             pkg_dic[pkg_name] = oe.packagedata.read_pkgdatafile(pkg_info)
-
             if not "LICENSE" in pkg_dic[pkg_name].keys():
                 pkg_lic_name = "LICENSE_" + pkg_name
                 pkg_dic[pkg_name]["LICENSE"] = pkg_dic[pkg_name][pkg_lic_name]
