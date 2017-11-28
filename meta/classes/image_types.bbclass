@@ -153,18 +153,14 @@ multiubi_mkfs() {
 	# Cleanup cfg file
 	mv ubinize${vname}-${IMAGE_NAME}.cfg ${IMGDEPLOYDIR}/
 
-	# Create own symlinks for 'named' volumes
-	if [ -n "$vname" ]; then
-		cd ${IMGDEPLOYDIR}
-		if [ -e ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubifs ]; then
-			ln -sf ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubifs \
-			${IMAGE_LINK_NAME}${vname}.ubifs
-		fi
-		if [ -e ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubi ]; then
-			ln -sf ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubi \
-			${IMAGE_LINK_NAME}${vname}.ubi
-		fi
-		cd -
+	# Create own symlinks
+	if [ -e ${IMGDEPLOYDIR}/${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubifs ]; then
+		ln -sf ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubifs \
+		${IMGDEPLOYDIR}/${IMAGE_LINK_NAME}${vname}.ubifs
+	fi
+	if [ -e ${IMGDEPLOYDIR}/${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubi ]; then
+		ln -sf ${IMAGE_NAME}${vname}${IMAGE_NAME_SUFFIX}.ubi \
+		${IMGDEPLOYDIR}/${IMAGE_LINK_NAME}${vname}.ubi
 	fi
 }
 
