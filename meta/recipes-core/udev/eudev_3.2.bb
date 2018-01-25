@@ -55,7 +55,7 @@ do_install_append() {
 	# hid2hci has moved to bluez4. removed in udev as of version 169
 	rm -f ${D}${base_libdir}/udev/hid2hci
 
-    ln -s libudev.so.1 ${D}/lib/libudev.so.0
+	ln -s libudev.so.1 ${D}/lib/libudev.so.0
 }
 
 INITSCRIPT_PACKAGES = "eudev udev-cache"
