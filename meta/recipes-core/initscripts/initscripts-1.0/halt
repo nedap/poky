@@ -24,6 +24,10 @@ then
 	hddown=""
 fi
 
-halt SED_HALTARGS -p $hddown
+# This makes the kernel shut down. We decided to take this part out
+# for now, because it causes a watchdog intervention. The filesystem
+# is unmounted at this point, so resetting the unit here should cause
+# no problems. 
+#halt SED_HALTARGS -p $hddown
 
 : exit 0
