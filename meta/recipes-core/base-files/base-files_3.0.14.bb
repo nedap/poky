@@ -40,7 +40,7 @@ dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
            ${mandir} ${datadir}/misc ${localstatedir} \
            ${localstatedir}/backups ${localstatedir}/lib \
            /sys ${localstatedir}/lib/misc ${localstatedir}/spool \
-           ${localstatedir}/volatile \
+           ${localstatedir}/volatile ${localstatedir}/volatile/cache \
            ${localstatedir}/volatile/log \
            /home ${prefix}/src ${localstatedir}/local \
            /media"
