@@ -186,10 +186,6 @@ class Rootfs(object, metaclass=ABCMeta):
 
         shutil.copytree(postinst_intercepts_dir, intercepts_dir)
 
-        shutil.copy(self.d.expand("${COREBASE}/meta/files/deploydir_readme.txt"),
-                    self.deploydir +
-                    "/README_-_DO_NOT_DELETE_FILES_IN_THIS_DIRECTORY.txt")
-
         execute_pre_post_process(self.d, pre_process_cmds)
 
         if self.progress_reporter:
@@ -949,7 +945,9 @@ class OpkgRootfs(DpkgOpkgRootfs):
         if self.progress_reporter:
             self.progress_reporter.next_stage()
 
-        self._setup_dbg_rootfs(['/etc', '/var/lib/opkg', '/usr/lib/ssl'])
+        opkg_lib_dir = self.d.getVar('OPKGLIBDIR', True)
+        opkg_dir = os.path.join(opkg_lib_dir, 'opkg')
+        self._setup_dbg_rootfs(['/etc', opkg_dir, '/usr/lib/ssl'])
 
         execute_pre_post_process(self.d, opkg_post_process_cmds)
 

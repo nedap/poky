@@ -5,11 +5,6 @@
 # rt-tests needs PI mutex support in libc
 EXCLUDE_FROM_WORLD_pn-rt-tests_libc-musl = "1"
 
-# error: no member named 'sin_port' in 'struct sockaddr_in6'
-# this is due to libtirpc using ipv6 but portmap rpc expecting ipv4
-EXCLUDE_FROM_WORLD_pn-portmap_libc-musl = "1"
-EXCLUDE_FROM_WORLD_pn-unfs3_libc-musl = "1"
-
 # error: use of undeclared identifier '_STAT_VER'
 EXCLUDE_FROM_WORLD_pn-pseudo_libc-musl = "1"
 
@@ -32,6 +27,10 @@ EXCLUDE_FROM_WORLD_pn-lttng-tools_libc-musl = "1"
 # error: obstack.h: No such file or directory
 EXCLUDE_FROM_WORLD_pn-systemtap_libc-musl = "1"
 EXCLUDE_FROM_WORLD_pn-systemtap-uprobes_libc-musl = "1"
+
+# portmap.c:488:32: error: 'struct sockaddr_in6' has no member named 'sin_port'; did you mean 'sin6_port'?
+# We removed portmap in rocko onwards and it doesn't work with libtirpc
+EXCLUDE_FROM_WORLD_pn-portmap_libc-musl = "1"
 
 # error: a parameter list without types is only allowed in a function definition
 #            void (*_function)(sigval_t);

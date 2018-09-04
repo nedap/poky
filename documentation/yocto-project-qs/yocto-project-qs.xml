@@ -16,12 +16,46 @@
                 Permission is granted to copy, distribute and/or modify this document under
                 the terms of the <ulink type="http" url="http://creativecommons.org/licenses/by-sa/2.0/uk/">Creative Commons Attribution-Share Alike 2.0 UK: England &amp; Wales</ulink> as published by Creative Commons.
             </para>
-            <note>
-                For the latest version of this manual associated with this
-                Yocto Project release, see the
-                <ulink url='&YOCTO_DOCS_QS_URL;'>Yocto Project Quick Start</ulink>
-                from the Yocto Project website.
-            </note>
+           <note><title>Manual Notes</title>
+               <itemizedlist>
+                   <listitem><para>
+                       This version of the
+                       <emphasis>Yocto Project Quick Start</emphasis>
+                       is for the &YOCTO_DOC_VERSION; release of the
+                       Yocto Project.
+                       To be sure you have the latest version of the manual
+                       for this release, go to the
+                       <ulink url='&YOCTO_HOME_URL;/documentation'>Yocto Project documentation page</ulink>
+                       and select the manual from that site.
+                       Manuals from the site are more up-to-date than manuals
+                       derived from the Yocto Project released TAR files.
+                       </para></listitem>
+                   <listitem><para>
+                       If you located this manual through a web search, the
+                       version of the manual might not be the one you want
+                       (e.g. the search might have returned a manual much
+                       older than the Yocto Project version with which you
+                       are working).
+                       You can see all Yocto Project major releases by
+                       visiting the
+                       <ulink url='&YOCTO_WIKI_URL;/wiki/Releases'>Releases</ulink>
+                       page.
+                       If you need a version of this manual for a different
+                       Yocto Project release, visit the
+                       <ulink url='&YOCTO_HOME_URL;/documentation'>Yocto Project documentation page</ulink>
+                       and select the manual set by using the
+                       "ACTIVE RELEASES DOCUMENTATION" or "DOCUMENTS ARCHIVE"
+                       pull-down menus.
+                       </para></listitem>
+                   <listitem><para>
+                       To report any inaccuracies or problems with this
+                       manual, send an email to the Yocto Project
+                       discussion group at
+                       <filename>yocto@yoctoproject.com</filename> or log into
+                       the freenode <filename>#yocto</filename> channel.
+                       </para></listitem>
+               </itemizedlist>
+           </note>
         </legalnotice>
 
 
@@ -302,7 +336,8 @@
                 <itemizedlist>
                     <listitem><para><emphasis>Ubuntu and Debian</emphasis>
                         <literallayout class='monospaced'>
-     $ sudo apt-get install &UBUNTU_HOST_PACKAGES_ESSENTIAL; libsdl1.2-dev xterm
+     $ sudo apt-get install &UBUNTU_HOST_PACKAGES_ESSENTIAL; \
+     libsdl1.2-dev xterm
                         </literallayout>
                         </para></listitem>
                     <listitem><para><emphasis>Fedora</emphasis>
@@ -318,16 +353,9 @@
                         </para></listitem>
                     <listitem><para><emphasis>CentOS</emphasis>
                         <literallayout class='monospaced'>
-     $ sudo yum install &CENTOS_HOST_PACKAGES_ESSENTIAL; SDL-devel xterm
+     $ sudo yum install &CENTOS_HOST_PACKAGES_ESSENTIAL; \
+     SDL-devel xterm
                         </literallayout>
-                        <note>
-                            CentOS 6.x users need to ensure that the required
-                            versions of Git, tar and Python are available.
-                            For details, See the
-                            "<ulink url='&YOCTO_DOCS_REF_URL;#required-git-tar-and-python-versions'>Required Git, tar, and Python Versions</ulink>"
-                            section in the Yocto Project Reference Manual for
-                            information.
-                        </note>
                         </para></listitem>
                 </itemizedlist>
             </para>

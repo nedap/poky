@@ -59,6 +59,11 @@ python uninative_event_fetchloader() {
             if localpath != tarballpath and os.path.exists(localpath) and not os.path.exists(tarballpath):
                     os.symlink(localpath, tarballpath)
 
+        # ldd output is "ldd (Ubuntu GLIBC 2.23-0ubuntu10) 2.23", extract last option from first line
+        glibcver = subprocess.check_output(["ldd", "--version"]).decode('utf-8').split('\n')[0].split()[-1]
+        if bb.utils.vercmp_string(d.getVar("UNINATIVE_MAXGLIBCVERSION", True), glibcver) < 0:
+            raise RuntimeError("Your host glibc verson (%s) is newer than that in uninative (%s). Disabling uninative so that sstate is not corrupted." % (glibcver, d.getVar("UNINATIVE_MAXGLIBCVERSION", True)))
+
         cmd = d.expand("mkdir -p ${UNINATIVE_STAGING_DIR}-uninative; cd ${UNINATIVE_STAGING_DIR}-uninative; tar -xjf ${UNINATIVE_DLDIR}/%s/${UNINATIVE_TARBALL}; ${UNINATIVE_STAGING_DIR}-uninative/relocate_sdk.py ${UNINATIVE_STAGING_DIR}-uninative/${BUILD_ARCH}-linux ${UNINATIVE_LOADER} ${UNINATIVE_LOADER} ${UNINATIVE_STAGING_DIR}-uninative/${BUILD_ARCH}-linux/${bindir_native}/patchelf-uninative ${UNINATIVE_STAGING_DIR}-uninative/${BUILD_ARCH}-linux${base_libdir_native}/libc*.so" % chksum)
         subprocess.check_call(cmd, shell=True)
 
@@ -67,6 +72,8 @@ python uninative_event_fetchloader() {
 
         enable_uninative(d)
 
+    except RuntimeError as e:
+        bb.warn(str(e))
     except bb.fetch2.BBFetchException as exc:
         bb.warn("Disabling uninative as unable to fetch uninative tarball: %s" % str(exc))
         bb.warn("To build your own uninative loader, please bitbake uninative-tarball and set UNINATIVE_TARBALL appropriately.")
@@ -91,6 +98,7 @@ def enable_uninative(d):
         bb.debug(2, "Enabling uninative")
         d.setVar("NATIVELSBSTRING", "universal%s" % oe.utils.host_gcc_version(d))
         d.appendVar("SSTATEPOSTUNPACKFUNCS", " uninative_changeinterp")
+        d.setVar("EXTRAINSTALLFUNCS_class-native", "uninative_relocate")
         d.prependVar("PATH", "${UNINATIVE_STAGING_DIR}-uninative/${BUILD_ARCH}-linux${bindir_native}:")
 
 python uninative_changeinterp () {
@@ -127,4 +135,21 @@ python uninative_changeinterp () {
             except subprocess.CalledProcessError as e:
                 bb.fatal("'%s' failed with exit code %d and the following output:\n%s" %
                          (e.cmd, e.returncode, e.output))
+}
+
+# In morty we have a problem since files can come from sstate or be built locally. Mixing interpreters
+# for local vs. sstate objects can result in hard to debug futex hangs in shared memory regions (e.g.
+# from smart/rpm/libdb).
+# To resolve this, relocate natively build binaries too. This fix isn't needed post morty since RSS
+# always uses uninative interpreter manipulations for code path simplicity.
+EXTRAINSTALLFUNCS = ""
+do_install[vardepsexclude] = "uninative_relocate"
+do_install[postfuncs] += "${EXTRAINSTALLFUNCS}"
+
+python uninative_relocate () {
+    # (re)Use uninative_changeinterp() to change the interpreter in files in ${D}
+    orig = d.getVar('SSTATE_INSTDIR', False)
+    d.setVar('SSTATE_INSTDIR', "${D}")
+    bb.build.exec_func("uninative_changeinterp", d)
+    d.setVar('SSTATE_INSTDIR', orig)
 }

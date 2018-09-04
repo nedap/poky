@@ -5,8 +5,8 @@ programming language."
 SECTION = "devel"
 LICENSE = "PD"
 
-SRC_URI = "ftp://invisible-island.net/byacc/byacc-${PV}.tgz \
-           file://byacc-open.patch"
+SRC_URI = "https://downloads.yoctoproject.org/mirror/sources/byacc-${PV}.tgz \
+           file://byacc-open.patch "
 
 EXTRA_OECONF += "--program-transform-name='s,^,b,'"
 

@@ -9,12 +9,14 @@ DEPENDS = "zlib"
 PN = "libpng12"
 S = "${WORKDIR}/libpng-${PV}"
 
-SRC_URI = "${GENTOO_MIRROR}/libpng-${PV}.tar.xz"
+LIBV = "12"
+
+SRC_URI = "https://sourceforge.net/projects/libpng/files/libpng${LIBV}/older-releases/${PV}/libpng-${PV}.tar.xz"
 
 SRC_URI[md5sum] = "868562bd1c58b76ed8703f135a2e439a"
 SRC_URI[sha256sum] = "24ce54581468b937734a6ecc86f7e121bc46a90d76a0d948dca08f32ee000dbe"
 
-UPSTREAM_CHECK_URI = "http://sourceforge.net/projects/libpng/files/libpng12/"
+UPSTREAM_CHECK_URI = "https://sourceforge.net/projects/libpng/files/libpng12/"
 UPSTREAM_CHECK_REGEX = "/libpng12/(?P<pver>(\d+[\.\-_]*)+)/"
 
 BINCONFIG_GLOB = "${PN}-config"

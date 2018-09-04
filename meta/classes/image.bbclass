@@ -439,6 +439,8 @@ python () {
         # This means the task's hash can be stable rather than having hardcoded
         # date/time values. It will get expanded at execution time.
         # Similarly TMPDIR since otherwise we see QA stamp comparision problems
+        # Expand PV else it can trigger get_srcrev which can fail due to these variables being unset
+        localdata.setVar('PV', d.getVar('PV', True))
         localdata.delVar('DATETIME')
         localdata.delVar('TMPDIR')
 
@@ -456,8 +458,8 @@ python () {
 
         rm_tmp_images = set()
         def gen_conversion_cmds(bt):
-            for ctype in ctypes:
-                if bt[bt.find('.') + 1:] == ctype:
+            for ctype in sorted(ctypes):
+                if bt.endswith("." + ctype):
                     type = bt[0:-len(ctype) - 1]
                     if type.startswith("debugfs_"):
                         type = type[8:]
@@ -487,7 +489,7 @@ python () {
         # Clean up after applying all conversion commands. Some of them might
         # use the same input, therefore we cannot delete sooner without applying
         # some complex dependency analysis.
-        for image in rm_tmp_images:
+        for image in sorted(rm_tmp_images):
             cmds.append("\trm " + image)
 
         after = 'do_image'
@@ -604,7 +606,7 @@ do_patch[noexec] = "1"
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
 do_install[noexec] = "1"
-do_populate_sysroot[noexec] = "1"
+deltask do_populate_sysroot
 do_package[noexec] = "1"
 do_package_qa[noexec] = "1"
 do_packagedata[noexec] = "1"

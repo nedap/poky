@@ -37,12 +37,27 @@ SRC_URI = "${GLIBC_GIT_URI};branch=${SRCBRANCH};name=glibc \
            file://0024-eglibc-Forward-port-cross-locale-generation-support.patch \
            file://0025-Define-DUMMY_LOCALE_T-if-not-defined.patch \
            file://0026-build_local_scope.patch \
+           file://0028-Bug-20116-Fix-use-after-free-in-pthread_create.patch \
+           file://CVE-2016-6323.patch \
+           file://0001-Add-atomic_exchange_relaxed.patch \
+           file://0002-Add-atomic-operations-required-by-the-new-condition-.patch \
+           file://0003-Add-pretty-printers-for-the-NPTL-lock-types.patch \
+           file://0004-New-condvar-implementation-that-provides-stronger-or.patch \
+           file://0005-Remove-__ASSUME_REQUEUE_PI.patch \
+           file://0006-Fix-atomic_fetch_xor_release.patch \
+           file://0001-CVE-2015-5180-resolv-Fix-crash-with-internal-QTYPE-B.patch \
+           file://0001-CVE-2017-1000366-Ignore-LD_LIBRARY_PATH-for-AT_SECUR.patch \
+           file://0002-ld.so-Reject-overly-long-LD_PRELOAD-path-elements.patch \
+           file://0003-ld.so-Reject-overly-long-LD_AUDIT-path-elements.patch \
+           file://0004-i686-Add-missing-IS_IN-libc-guards-to-vectorized-str.patch \
 "
 
 SRC_URI += "\
            file://etc/ld.so.conf \
            file://generate-supported.mk \
            file://0001-locale-fix-hard-coded-reference-to-gcc-E.patch \
+           file://CVE-2017-8804.patch \
+           file://CVE-2017-15670.patch \
            "
 
 SRC_URI_append_class-nativesdk = "\
@@ -50,6 +65,7 @@ SRC_URI_append_class-nativesdk = "\
            file://0002-nativesdk-glibc-Fix-buffer-overrun-with-a-relocated-.patch \
            file://0003-nativesdk-glibc-Raise-the-size-of-arrays-containing-.patch \
            file://0004-nativesdk-glibc-Allow-64-bit-atomics-for-x86.patch \
+           file://relocate-locales.patch \
 "
 
 S = "${WORKDIR}/git"
@@ -127,12 +143,6 @@ do_compile () {
 		fi
 	fi
 
-}
-
-# Use the host locale archive when built for nativesdk so that we don't need to
-# ship a complete (100MB) locale set.
-do_compile_prepend_class-nativesdk() {
-    echo "complocaledir=/usr/lib/locale" >> ${S}/configparms
 }
 
 require glibc-package.inc

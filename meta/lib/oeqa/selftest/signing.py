@@ -21,13 +21,16 @@ class Signing(oeSelfTest):
         if not shutil.which("gpg"):
             raise AssertionError("This test needs GnuPG")
 
-        cls.gpg_home_dir = tempfile.TemporaryDirectory(prefix="oeqa-signing-")
-        cls.gpg_dir = cls.gpg_home_dir.name
+        cls.gpg_dir = tempfile.mkdtemp(prefix="oeqa-signing-")
 
         cls.pub_key_path = os.path.join(cls.testlayer_path, 'files', 'signing', "key.pub")
         cls.secret_key_path = os.path.join(cls.testlayer_path, 'files', 'signing', "key.secret")
 
-        runCmd('gpg --homedir %s --import %s %s' % (cls.gpg_dir, cls.pub_key_path, cls.secret_key_path))
+        runCmd('gpg --batch --homedir %s --import %s %s' % (cls.gpg_dir, cls.pub_key_path, cls.secret_key_path))
+
+    @classmethod
+    def tearDownClass(cls):
+        shutil.rmtree(cls.gpg_dir, ignore_errors=True)
 
     @testcase(1362)
     def test_signing_packages(self):
@@ -54,8 +57,9 @@ class Signing(oeSelfTest):
 
         self.write_config(feature)
 
-        bitbake('-c cleansstate %s' % test_recipe)
-        bitbake(test_recipe)
+        bitbake('-c clean %s' % test_recipe)
+        bitbake('-f -c package_write_rpm %s' % test_recipe)
+
         self.add_command_to_tearDown('bitbake -c clean %s' % test_recipe)
 
         pkgdatadir = get_bb_var('PKGDATA_DIR', test_recipe)
@@ -98,24 +102,19 @@ class Signing(oeSelfTest):
         sstatedir = os.path.join(builddir, 'test-sstate')
 
         self.add_command_to_tearDown('bitbake -c clean %s' % test_recipe)
-        self.add_command_to_tearDown('bitbake -c cleansstate %s' % test_recipe)
         self.add_command_to_tearDown('rm -rf %s' % sstatedir)
 
-        # Determine the pub key signature
-        ret = runCmd('gpg --homedir %s --list-keys' % self.gpg_dir)
-        pub_key = re.search(r'^pub\s+\S+/(\S+)\s+', ret.output, re.M)
-        self.assertIsNotNone(pub_key, 'Failed to determine the public key signature.')
-        pub_key = pub_key.group(1)
-
-        feature = 'SSTATE_SIG_KEY ?= "%s"\n' % pub_key
+        feature = 'SSTATE_SIG_KEY ?= "testuser"\n'
         feature += 'SSTATE_SIG_PASSPHRASE ?= "test123"\n'
         feature += 'SSTATE_VERIFY_SIG ?= "1"\n'
         feature += 'GPG_PATH = "%s"\n' % self.gpg_dir
         feature += 'SSTATE_DIR = "%s"\n' % sstatedir
+        # Any mirror might have partial sstate without .sig files, triggering failures
+        feature += 'SSTATE_MIRRORS_forcevariable = ""\n'
 
         self.write_config(feature)
 
-        bitbake('-c cleansstate %s' % test_recipe)
+        bitbake('-c clean %s' % test_recipe)
         bitbake(test_recipe)
 
         recipe_sig = glob.glob(sstatedir + '/*/*:ed:*_package.tgz.sig')
