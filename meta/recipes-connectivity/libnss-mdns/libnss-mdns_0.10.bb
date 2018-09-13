@@ -29,12 +29,11 @@ RDEPENDS_${PN} = "avahi-daemon"
 
 pkg_postinst_${PN} () {
 	sed -e '/^hosts:/s/\s*\<mdns\>//' \
-		-e 's/\(^hosts:.*\)\(\<files\>\)\(.*\)\(\<dns\>\)\(.*\)/\1\2 mdns4_minimal [NOTFOUND=return]\3\4 mdns\5/' \
+		-e 's/\(^hosts:.*\)\(\<files\>\)\(.*\)/\1\2 mdns4_minimal [NOTFOUND=return]\3/' \
 		-i $D${sysconfdir}/nsswitch.conf
 }
 
 pkg_prerm_${PN} () {
-	sed -e '/^hosts:/s/\s*\<mdns\>//' \
-		-e '/^hosts:/s/\s*mdns4_minimal\s\+\[NOTFOUND=return\]//' \
+	sed -e '/^hosts:/s/\s*mdns4_minimal\s\+\[NOTFOUND=return\]//' \
 		-i $D${sysconfdir}/nsswitch.conf
 }
