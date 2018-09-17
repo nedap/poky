@@ -4,6 +4,7 @@ HOMEPAGE = "http://www.busybox.net"
 BUGTRACKER = "https://bugs.busybox.net/"
 
 DEPENDS += "kern-tools-native"
+PR = "1"
 
 # bzip2 applet in busybox is based on lightly-modified bzip2 source
 # the GPL is version 2 only
