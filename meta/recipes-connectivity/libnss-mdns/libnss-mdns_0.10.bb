@@ -6,7 +6,7 @@ LICENSE = "LGPLv2.1+"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2d5025d4aa3495befef8f17206a5b0a1"
 
 DEPENDS = "avahi"
-PR = "r7"
+PR = "r8"
 
 SRC_URI = "http://0pointer.de/lennart/projects/nss-mdns/nss-mdns-${PV}.tar.gz \
            file://0001-check-for-nss.h.patch \
@@ -29,12 +29,11 @@ RDEPENDS_${PN} = "avahi-daemon"
 
 pkg_postinst_${PN} () {
 	sed -e '/^hosts:/s/\s*\<mdns\>//' \
-		-e 's/\(^hosts:.*\)\(\<files\>\)\(.*\)\(\<dns\>\)\(.*\)/\1\2 mdns4_minimal [NOTFOUND=return]\3\4 mdns\5/' \
+		-e 's/\(^hosts:.*\)\(\<files\>\)\(.*\)/\1\2 mdns4_minimal [NOTFOUND=return]\3/' \
 		-i $D${sysconfdir}/nsswitch.conf
 }
 
 pkg_prerm_${PN} () {
-	sed -e '/^hosts:/s/\s*\<mdns\>//' \
-		-e '/^hosts:/s/\s*mdns4_minimal\s\+\[NOTFOUND=return\]//' \
+	sed -e '/^hosts:/s/\s*mdns4_minimal\s\+\[NOTFOUND=return\]//' \
 		-i $D${sysconfdir}/nsswitch.conf
 }
