@@ -3,6 +3,8 @@ HOMEPAGE = "https://wiki.gentoo.org/wiki/Eudev"
 LICENSE = "GPLv2.0+"
 LIC_FILES_CHKSUM = "file://COPYING;md5=751419260aa954499f7abaabaa882bbe"
 
+PR = "r1"
+
 DEPENDS = "glib-2.0 glib-2.0-native gperf-native kmod libxslt-native util-linux"
 
 PROVIDES = "udev"
@@ -54,6 +56,10 @@ do_install_append() {
 
 	# hid2hci has moved to bluez4. removed in udev as of version 169
 	rm -f ${D}${base_libdir}/udev/hid2hci
+
+	# mock an older udev version
+	install -d ${D}${libdir}
+	ln -rs ${D}${base_libdir}/libudev.so.1 ${D}${libdir}/libudev.so.0
 }
 
 INITSCRIPT_PACKAGES = "eudev udev-cache"
@@ -72,7 +78,7 @@ FILES_${PN}-dev = "${datadir}/pkgconfig/udev.pc \
                    ${includedir}/libudev.h ${libdir}/libudev.so \
                    ${includedir}/udev.h ${libdir}/libudev.la \
                    ${libdir}/libudev.a ${libdir}/pkgconfig/libudev.pc"
-FILES_libudev = "${base_libdir}/libudev.so.*"
+FILES_libudev = "${base_libdir}/libudev.so.* ${libdir}/libudev.so.*"
 FILES_udev-cache = "${sysconfdir}/init.d/udev-cache ${sysconfdir}/default/udev-cache"
 FILES_eudev-hwdb = "${sysconfdir}/udev/hwdb.d"
 
