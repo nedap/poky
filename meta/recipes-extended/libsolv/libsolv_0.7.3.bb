@@ -8,22 +8,27 @@ LIC_FILES_CHKSUM = "file://LICENSE.BSD;md5=62272bd11c97396d4aaf1c41bc11f7d8"
 DEPENDS = "expat zlib"
 
 SRC_URI = "git://github.com/openSUSE/libsolv.git \
-          "
-SRC_URI_append_libc-musl = " file://0001-Add-fallback-fopencookie-implementation.patch"
+           file://0001-solver_solve-only-disfavor-recommends-if-there-are-a.patch \
+"
 
-SRCREV = "f654c8cfa52427ed42d7142e58452dae08c0c2d0"
+SRCREV = "dc7d0f1c3113f2c8217563166906bef3eb5d1ee1"
 UPSTREAM_CHECK_GITTAGREGEX = "(?P<pver>\d+(\.\d+)+)"
 
 S = "${WORKDIR}/git"
 
 inherit cmake
 
-EXTRA_OECMAKE = "-DLIB=${baselib} -DMULTI_SEMANTICS=ON"
+EXTRA_OECMAKE = "-DLIB=${baselib} -DMULTI_SEMANTICS=ON -DENABLE_COMPLEX_DEPS=ON"
 
 PACKAGES =+ "${PN}-tools ${PN}ext"
 
-FILES_${PN}-dev += "${datadir}/cmake/Modules/FindLibSolv.cmake"
+do_install_append () {
+	rm -rf ${D}/usr/share/cmake
+	rm -rf ${D}/usr/share/cmake/Modules
+	rm -rf ${D}/usr/share/cmake/Modules/FindLibSolv.cmake
+}
+
 FILES_${PN}-tools = "${bindir}/*"
 FILES_${PN}ext = "${libdir}/${PN}ext.so.*"
 
-BBCLASSEXTEND =+ "native nativesdk"
+BBCLASSEXTEND = "native nativesdk"
