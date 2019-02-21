@@ -18,11 +18,11 @@ inherit uboot-config uboot-extlinux-config uboot-sign deploy
 EXTRA_OEMAKE = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${TARGET_PREFIX}gcc ${TOOLCHAIN_OPTIONS}" V=1'
 EXTRA_OEMAKE += 'HOSTCC="${BUILD_CC} ${BUILD_CFLAGS} ${BUILD_LDFLAGS}"'
 
-PACKAGECONFIG ??= "openssl"
+PACKAGECONFIG ??= "openssl10"
 # u-boot will compile its own tools during the build, with specific
 # configurations (aka when CONFIG_FIT_SIGNATURE is enabled) openssl is needed as
 # a host build dependency.
-PACKAGECONFIG[openssl] = ",,openssl-native"
+PACKAGECONFIG[openssl10] = ",,openssl-native"
 
 # Allow setting an additional version string that will be picked up by the
 # u-boot build system and appended to the u-boot version.  If the .scmversion
