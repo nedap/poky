@@ -1,30 +1,3 @@
-                          Poky Hardware README
-                          ====================
-
-This file gives details about using Poky with the reference machines
-supported out of the box. A full list of supported reference target machines
-can be found by looking in the following directories:
-
-   meta/conf/machine/
-   meta-yocto-bsp/conf/machine/
-
-If you are in doubt about using Poky/OpenEmbedded with your hardware, consult
-the documentation for your board/device.
-
-Support for additional devices is normally added by creating BSP layers - for
-more information please see the Yocto Board Support Package (BSP) Developer's
-Guide - documentation source is in documentation/bspguide or download the PDF
-from:
-
-   http://yoctoproject.org/documentation
-
-Support for physical reference hardware has now been split out into a
-meta-yocto-bsp layer which can be removed separately from other layers if not
-needed.
-
-
-QEMU Emulation Targets
-======================
 
 To simplify development, the build system supports building images to
 work with the QEMU emulator in system emulation mode. Several architectures
@@ -39,6 +12,29 @@ are currently supported:
 Use of the QEMU images is covered in the Yocto Project Reference Manual.
 The appropriate MACHINE variable value corresponding to the target is given
 in brackets.
+=======
+                  Yocto Project Hardware Reference BSPs README
+                  ============================================
+
+This file gives details about using the Yocto Project hardware reference BSPs.
+The machines supported can be seen in the conf/machine/ directory and are listed 
+below. There is one per supported hardware architecture and these are primarily
+used to validate that the Yocto Project works on the hardware arctectures of 
+those machines.
+
+If you are in doubt about using Poky/OpenEmbedded/Yocto Project with your hardware, 
+consult the documentation for your board/device.
+
+Support for additional devices is normally added by adding BSP layers to your 
+configuration. For more information please see the Yocto Board Support Package 
+(BSP) Developer's Guide - documentation source is in documentation/bspguide or 
+download the PDF from:
+
+   http://yoctoproject.org/documentation
+
+Note that these reference BSPs use the linux-yocto kernel and in general don't
+pull in binary module support for the platforms. This means some device functionality
+may be limited compared to a 'full' BSP which may be available.
 
 
 Hardware Reference Boards
@@ -46,8 +42,10 @@ Hardware Reference Boards
 
 The following boards are supported by the meta-yocto-bsp layer:
 
-  * Texas Instruments Beaglebone (beaglebone)
+  * Texas Instruments Beaglebone (beaglebone-yocto)
   * Freescale MPC8315E-RDB (mpc8315e-rdb)
+  * Ubiquiti Networks EdgeRouter Lite (edgerouter)
+  * General IA platforms (genericx86 and genericx86-64)
 
 For more information see the board's section below. The appropriate MACHINE
 variable value corresponding to the board is given in brackets.
@@ -137,7 +135,7 @@ USB Device:
        dd command to write the image to a USB stick.
 
 
-Texas Instruments Beaglebone (beaglebone)
+Texas Instruments Beaglebone (beaglebone-yocto)
 =========================================
 
 The Beaglebone is an ARM Cortex-A8 development board with USB, Ethernet, 2D/3D
@@ -168,7 +166,7 @@ From a Linux system with access to the image files perform the following steps:
 
   2. Use the "dd" utility to write the image to the SD card. For example:
 
-     # dd core-image-minimal-beaglebone.wic of=/dev/sdb
+     # dd core-image-minimal-beaglebone-yocto.wic of=/dev/sdb
 
   3. Insert the SD card into the Beaglebone and boot the board.
 
@@ -202,6 +200,70 @@ network, then you will need to change the values in the dts file (patch
 linux/arch/powerpc/boot/dts/mpc8315erdb.dts within the kernel source). If
 you have left them at the factory default then you shouldn't need to do
 anything here.
+
+Note: To boot from USB disk you need u-boot that supports 'ext2load usb'
+command. You need to setup TFTP server, load u-boot from there and
+flash it to NOR flash.
+
+Beware! Flashing bootloader is potentially dangerous operation that can
+brick your device if done incorrectly. Please, make sure you understand
+what below commands mean before executing them.
+
+Load the new u-boot.bin from TFTP server to memory address 200000
+=> tftp 200000 u-boot.bin
+
+Disable flash protection
+=> protect off all
+
+Erase the old u-boot from fe000000 to fe06ffff in NOR flash.
+The size is 0x70000 (458752 bytes)
+=> erase fe000000 fe06ffff
+
+Copy the new u-boot from address 200000 to fe000000
+the size is 0x70000. It has to be greater or equal to u-boot.bin size
+=> cp.b 200000 fe000000 70000
+
+Enable flash protection again
+=> protect on all
+
+Reset the board
+=> reset
+
+--- Booting from USB disk ---
+
+ 1. Flash partitioned image to the USB disk
+
+    # dd if=core-image-minimal-mpc8315e-rdb.wic of=/dev/sdb
+
+ 2. Plug USB disk into the MPC8315 board
+
+ 3. Connect the board's first serial port to your workstation and then start up
+    your favourite serial terminal so that you will be able to interact with
+    the serial console. If you don't have a favourite, picocom is suggested:
+
+  $ picocom /dev/ttyUSB0 -b 115200
+
+ 4. Power up or reset the board and press a key on the terminal when prompted
+    to get to the U-Boot command line
+
+ 5. Optional. Load the u-boot.bin from the USB disk:
+
+ => usb start
+ => ext2load usb 0:1 200000 u-boot.bin
+
+    and flash it to NOR flash as described above.
+
+ 6. Load the kernel and dtb from the first partition of the USB disk:
+
+ => usb start
+ => ext2load usb 0:1 1000000 uImage
+ => ext2load usb 0:1 2000000 dtb
+
+ 7. Set bootargs and boot up the device
+
+ => setenv bootargs root=/dev/sdb2 rw rootwait console=ttyS0,115200
+ => bootm 1000000 - 2000000
+
 
 --- Booting from NFS root ---
 
@@ -317,7 +379,7 @@ Steps:
 
  2. Flash the image.
 
-    # dd core-image-minimal-edgerouter.wic of=/dev/sdb
+    # dd if=core-image-minimal-edgerouter.wic of=/dev/sdb
 
  3. Insert USB disk into the edgerouter and boot it.
 
