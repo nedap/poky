@@ -8,6 +8,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=0636e73ff0215e8d672dc4c32c317bb3 \
 DEPENDS = "zlib lzo e2fsprogs util-linux"
 
 PV = "1.5.2"
+PR = "r1"
 
 SRCREV = "aea36417067dade75192bafa03af70b6eb2677b1"
 SRC_URI = "git://git.infradead.org/mtd-utils.git \

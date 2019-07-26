@@ -1,7 +1,7 @@
 SUMMARY = "Miscellaneous files for the base system"
 DESCRIPTION = "The base-files package creates the basic system directory structure and provides a small set of key configuration files for the system."
 SECTION = "base"
-PR = "r89"
+PR = "r998"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://licenses/GPL-2;md5=94d55d512a9ba36caa9b7df079bae19f"
 # Removed all license related tasks in this recipe as license.bbclass 
@@ -30,7 +30,7 @@ S = "${WORKDIR}"
 INHIBIT_DEFAULT_DEPS = "1"
 
 docdir_append = "/${P}"
-dirs1777 = "/tmp ${localstatedir}/volatile/tmp"
+dirs1777 = "${localstatedir}/volatile/tmp"
 dirs2775 = ""
 dirs755 = "/bin /boot /dev ${sysconfdir} ${sysconfdir}/default \
            ${sysconfdir}/skel /lib /mnt /proc ${ROOT_HOME} /run /sbin \
@@ -76,19 +76,27 @@ BASEFILESISSUEINSTALL ?= "do_install_basefilesissue"
 # Otherwise the directory creation will fail and we will have circular symbolic
 # links.
 # 
+# Also, for some reason tmp was in the root directory as a dir while it is also
+# created as a symlink by the volatiles construction during boot.
+# 
 pkg_preinst_${PN} () {
-    #!/bin/sh -e
-    if [ x"$D" = "x" ]; then
-        if [ -h "/var/lock" ]; then
-            # Remove the symbolic link
-            rm -f /var/lock
-        fi
+#!/bin/sh -e
+if [ x"$D" = "x" ]; then
+    if [ -h "/var/lock" ]; then
+        # Remove the symbolic link
+        rm -f /var/lock
+    fi
 
-        if [ -h "/run" ]; then
-            # Remove the symbolic link
-            rm -f /run
-        fi
-    fi     
+    if [ -h "/run" ]; then
+        # Remove the symbolic link
+        rm -f /run
+    fi
+
+    if [ -d "/tmp" -a ! -h "/tmp" ]; then
+        # Remove the directory
+        rm -rf /tmp
+    fi
+fi
 }
 
 do_install () {
@@ -105,6 +113,7 @@ do_install () {
 		ln -sf volatile/$d ${D}${localstatedir}/$d
 	done
 
+	ln -snf ${localstatedir}/tmp ${D}/tmp
 	ln -snf ../run ${D}${localstatedir}/run
 	ln -snf ../run/lock ${D}${localstatedir}/lock
 

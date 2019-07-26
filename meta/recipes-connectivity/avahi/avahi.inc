@@ -149,17 +149,23 @@ do_install() {
 # Don't exit early, because update-rc.d needs to run subsequently.
 
 pkg_postinst_avahi-daemon () {
-if [ -z "$D" ]; then
-	killall -q -HUP dbus-daemon || true
+#!/bin/sh -e
+# can't do this offline
+if [ -n "$D" ]; then
+	exit 1
 fi
+grep "^avahi:" /etc/group > /dev/null || addgroup avahi
+grep "^avahi:" /etc/passwd > /dev/null || adduser --disabled-password --system --home /var/run/avahi-daemon --no-create-home avahi --ingroup avahi -g Avahi
+
+killall -q -HUP dbus-daemon || true
 }
 
-pkg_postrm_avahi-daemon () {
-	deluser avahi || true
-	delgroup avahi || true
-}
-
-pkg_postrm_avahi-autoipd () {
-	deluser avahi-autoipd || true
-	delgroup avahi-autoipd || true
+pkg_postinst_avahi-autoipd () {
+#!/bin/sh -e
+# can't do this offline
+if [ -n "$D" ]; then
+	exit 1
+fi
+grep "^avahi-autoipd:" /etc/group > /dev/null || addgroup avahi-autoipd
+grep "^avahi-autoipd:" /etc/passwd > /dev/null || adduser --disabled-password --system --home /var/lib/avahi-autoipd --no-create-home avahi-autoipd --ingroup avahi-autoipd -g "Avahi autoip daemon"
 }

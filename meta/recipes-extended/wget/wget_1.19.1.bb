@@ -1,8 +1,10 @@
+PR = "r2"
+
 SRC_URI = "${GNU_MIRROR}/wget/wget-${PV}.tar.gz \
            file://0001-Unset-need_charset_alias-when-building-for-musl.patch \
           "
 
-SRC_URI[md5sum] = "fc2debd8399e3b933a9b226794e2a886"
-SRC_URI[sha256sum] = "a00a65fab84cc46e24c53ce88c45604668a7a479276e037dc2f558e34717fb2d"
+SRC_URI[md5sum] = "87cea36b7161fd43e3fd51a4e8b89689"
+SRC_URI[sha256sum] = "9e4f12da38cc6167d0752d934abe27c7b1599a9af294e73829be7ac7b5b4da40"
 
 require wget.inc
