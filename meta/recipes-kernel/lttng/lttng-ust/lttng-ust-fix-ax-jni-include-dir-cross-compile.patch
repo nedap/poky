@@ -1,0 +1,17 @@
+diff --git a/configure.ac b/configure.ac
+index 307106b9..227f7846 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -294,11 +294,7 @@ AS_IF([test "x$jni_interface" = "xyes" || test "x$java_agent_jul" = "xyes" || te
+ 	AX_PROG_JAVA
+ 	AX_PROG_JAR
+ 
+-	AX_JNI_INCLUDE_DIR
+-	for JNI_INCLUDE_DIR in $JNI_INCLUDE_DIRS
+-	do
+-		CPPFLAGS="$CPPFLAGS -I$JNI_INCLUDE_DIR"
+-	done
++	CPPFLAGS="$CPPFLAGS -I/data/retail-renos-oe-core/build/tmp/sysroots/x86_64-linux/usr/lib/jvm/java-8-oracle/include -I/data/retail-renos-oe-core/build/tmp/sysroots/x86_64-linux/usr/lib/jvm/java-8-oracle/include/linux "
+ 
+ 	AX_PROG_JAVAH
+ ])
