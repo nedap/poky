@@ -7,25 +7,23 @@ SECTION = "misc"
 LICENSE = "GPL-2.0+ & MPL-2.0"
 LIC_FILES_CHKSUM = "file://debian/copyright;md5=aeb420429b1659507e0a5a1b123e8308"
 
-PR = "r1"
-
 # This is needed to ensure we can run the postinst at image creation time
 DEPENDS = ""
 DEPENDS_class-native = "openssl-native"
 DEPENDS_class-nativesdk = "openssl-native"
-# Need c_rehash from openssl and run-parts from debianutils
+# Need rehash from openssl and run-parts from debianutils
 PACKAGE_WRITE_DEPS += "openssl-native debianutils-native"
 
-SRCREV = "dbbd11e56af93bb79f21d0ee6059a901f83f70a5"
+SRCREV = "c28799b138b044c963d24c4a69659b6e5486e3be"
 
 SRC_URI = "git://salsa.debian.org/debian/ca-certificates.git;protocol=https \
-           file://0001-update-ca-certificates-don-t-use-Debianisms-in-run-p.patch \
            file://0002-update-ca-certificates-use-SYSROOT.patch \
-           file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
-           file://0004-update-ca-certificates-use-c-rehash-instead-of-openssl-rehash.patch \
+           file://0001-update-ca-certificates-don-t-use-Debianisms-in-run-p.patch \
            file://update-ca-certificates-support-Toybox.patch \
            file://default-sysroot.patch \
            file://sbindir.patch \
+           file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
+           file://0001-certdata2pem.py-use-python3.patch \
            "
 
 S = "${WORKDIR}/git"
@@ -56,7 +54,7 @@ do_install () {
         echo "# Lines starting with ! will remove certificate on next update"
         echo "#"
         find ${D}${datadir}/ca-certificates -type f -name '*.crt' | \
-            sed 's,^${D}${datadir}/ca-certificates/,,'
+            sed 's,^${D}${datadir}/ca-certificates/,,' | sort
     } >${D}${sysconfdir}/ca-certificates.conf
 }
 
