@@ -7,6 +7,8 @@ SECTION = "misc"
 LICENSE = "GPL-2.0+ & MPL-2.0"
 LIC_FILES_CHKSUM = "file://debian/copyright;md5=aeb420429b1659507e0a5a1b123e8308"
 
+PR = "r0"
+
 # This is needed to ensure we can run the postinst at image creation time
 DEPENDS = ""
 DEPENDS_class-native = "openssl-native"
