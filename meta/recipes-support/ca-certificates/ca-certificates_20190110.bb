@@ -13,7 +13,7 @@ PR = "r0"
 DEPENDS = ""
 DEPENDS_class-native = "openssl-native"
 DEPENDS_class-nativesdk = "openssl-native"
-# Need rehash from openssl and run-parts from debianutils
+# Need c_rehash from openssl and run-parts from debianutils
 PACKAGE_WRITE_DEPS += "openssl-native debianutils-native"
 
 SRCREV = "c28799b138b044c963d24c4a69659b6e5486e3be"
