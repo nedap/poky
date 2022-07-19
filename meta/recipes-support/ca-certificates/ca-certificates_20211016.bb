@@ -22,6 +22,7 @@ SRC_URI = "git://salsa.debian.org/debian/ca-certificates.git;protocol=https;bran
            file://default-sysroot.patch \
            file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
            file://0001-Revert-mozilla-certdata2pem.py-print-a-warning-for-e.patch \
+           file://0004-update-ca-certificates-use-c-rehash-instead-of-openssl-rehash.patch \
            "
 UPSTREAM_CHECK_GITTAGREGEX = "(?P<pver>\d+)"
 
@@ -82,8 +83,8 @@ do_install_append_class-native () {
     SYSROOT="${D}${base_prefix}" ${D}${sbindir}/update-ca-certificates
 }
 
-RDEPENDS_${PN}_append_class-target = " openssl-bin openssl"
+RDEPENDS_${PN}_append_class-target = " openssl"
 RDEPENDS_${PN}_append_class-native = " openssl-native"
-RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl-bin nativesdk-openssl"
+RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl"
 
 BBCLASSEXTEND = "native nativesdk"
