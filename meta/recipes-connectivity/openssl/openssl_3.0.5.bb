@@ -23,14 +23,6 @@ SRC_URI[sha256sum] = "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b
 inherit lib_package multilib_header multilib_script ptest perlnative
 MULTILIB_SCRIPTS = "${PN}-bin:${bindir}/c_rehash"
 
-PACKAGECONFIG ?= ""
-PACKAGECONFIG_class-native = ""
-PACKAGECONFIG_class-nativesdk = ""
-
-PACKAGECONFIG[cryptodev-linux] = "enable-devcryptoeng,disable-devcryptoeng,cryptodev-linux,,cryptodev-module"
-PACKAGECONFIG[no-tls1] = "no-tls1"
-PACKAGECONFIG[no-tls1_1] = "no-tls1_1"
-
 B = "${WORKDIR}/build"
 do_configure[cleandirs] = "${B}"
 
