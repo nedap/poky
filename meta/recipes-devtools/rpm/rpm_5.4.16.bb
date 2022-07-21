@@ -247,7 +247,7 @@ RPM_SELF_SIGN_ALGO ?= "DSA"
 
 # Note: perl and sqlite w/o db specified does not currently work.
 #       tcl, augeas, nss, gcrypt, xar and keyutils support is untested.
-PACKAGECONFIG ??= "db bzip2 zlib popt libelf python"
+PACKAGECONFIG ??= "db bzip2 zlib popt nss libelf python"
 
 # Note: switching to internal popt may not work, as it will generate
 # a shared library which will intentionally not be packaged.
