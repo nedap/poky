@@ -247,7 +247,7 @@ RPM_SELF_SIGN_ALGO ?= "DSA"
 
 # Note: perl and sqlite w/o db specified does not currently work.
 #       tcl, augeas, nss, gcrypt, xar and keyutils support is untested.
-PACKAGECONFIG ??= "db bzip2 zlib popt openssl1 libelf python"
+PACKAGECONFIG ??= "db bzip2 zlib popt openssl libelf python"
 
 # Note: switching to internal popt may not work, as it will generate
 # a shared library which will intentionally not be packaged.
@@ -287,7 +287,7 @@ PACKAGECONFIG[beecrypt] = "--with-beecrypt=external,--with-beecrypt=internal,bee
 
 # --with-usecrypto= setting defined the item as the preferred system
 # crypto engine, which will take priority over the included beecrypt
-PACKAGECONFIG[openssl1] = "--with-openssl --with-usecrypto=openssl,--without-openssl,openssl,"
+PACKAGECONFIG[openssl] = "--with-openssl --with-usecrypto=openssl,--without-openssl,openssl1,"
 PACKAGECONFIG[nss] = "--with-nss --with-usecrypto=nss,--without-nss,nss,"
 PACKAGECONFIG[gcrypt] = "--with-gcrypt --with-usecrypto=gcrypt,--without-gcrypt,gcrypt,"
 
