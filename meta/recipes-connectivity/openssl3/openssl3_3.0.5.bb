@@ -211,16 +211,16 @@ do_install_ptest () {
 	sed 's|${S}|${PTEST_PATH}|g' -i ${D}${PTEST_PATH}/util/wrap.pl
 }
 
-# Add the openssl.cnf file to the openssl-conf package. Make the libcrypto
+# Add the openssl.cnf file to the openssl-conf package. Make the libcrypto3
 # package RRECOMMENDS on this package. This will enable the configuration
-# file to be installed for both the openssl-bin package and the libcrypto
-# package since the openssl-bin package depends on the libcrypto package.
+# file to be installed for both the openssl3-bin package and the libcrypto3
+# package since the openssl3-bin package depends on the libcrypto3 package.
 
-PACKAGES =+ "libcrypto libssl openssl-conf ${PN}-engines ${PN}-misc ${PN}-ossl-module-legacy"
+PACKAGES =+ "libcrypto3 libssl3 openssl3-conf ${PN}-engines ${PN}-misc ${PN}-ossl-module-legacy"
 
-FILES_libcrypto = "${libdir}/libcrypto${SOLIBS}"
-FILES_libssl = "${libdir}/libssl${SOLIBS}"
-FILES_openssl-conf = "${sysconfdir}/ssl/openssl.cnf \
+FILES_libcrypto3 = "${libdir}/libcrypto${SOLIBS}"
+FILES_libssl3 = "${libdir}/libssl${SOLIBS}"
+FILES_openssl3-conf = "${sysconfdir}/ssl/openssl.cnf \
                       ${libdir}/ssl-3/openssl.cnf* \
                       "
 FILES_${PN}-engines = "${libdir}/engines-3"
@@ -231,13 +231,13 @@ FILES_${PN}-ossl-module-legacy = "${libdir}/ossl-modules/legacy.so"
 FILES_${PN} =+ "${libdir}/ssl-3/* ${libdir}/ossl-modules/"
 FILES_${PN}_append_class-nativesdk = " ${SDKPATHNATIVE}/environment-setup.d/openssl.sh"
 
-CONFFILES_openssl-conf = "${sysconfdir}/ssl/openssl.cnf"
+CONFFILES_openssl3-conf = "${sysconfdir}/ssl/openssl.cnf"
 
-RRECOMMENDS_libcrypto += "openssl-conf ${PN}-ossl-module-legacy"
+RRECOMMENDS_libcrypto += "openssl3-conf ${PN}-ossl-module-legacy"
 RDEPENDS_${PN}-misc = "perl"
-RDEPENDS_${PN}-ptest += "openssl-bin perl perl-modules bash sed"
+RDEPENDS_${PN}-ptest += "openssl3-bin perl perl-modules bash sed"
 
-RDEPENDS_${PN}-bin += "openssl-conf"
+RDEPENDS_${PN}-bin += "openssl3-conf"
 
 BBCLASSEXTEND = "native nativesdk"
 
