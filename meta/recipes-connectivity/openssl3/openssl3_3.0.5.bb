@@ -46,7 +46,7 @@ CFLAGS_append_class-nativesdk = " -DOPENSSLDIR=/not/builtin -DENGINESDIR=/not/bu
 DEPRECATED_CRYPTO_FLAGS ?= ""
 
 do_unpack_extra () {
-	rsync -au "${WORKDIR}/openssl-${PV}/" S = "${WORKDIR}/openssl3-${PV}"
+	rsync -au "${WORKDIR}/openssl-${PV}/" "${WORKDIR}/openssl3-${PV}/"
 	rm -rf "${WORKDIR}/openssl-${PV}"
 }
 addtask unpack_extra after do_unpack before do_patch
