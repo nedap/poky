@@ -23,6 +23,7 @@ SRC_URI[sha256sum] = "aa7d8d9bef71ad6525c55ba11e5f4397889ce49c2c9349dcea6d3e4f0b
 inherit lib_package multilib_header multilib_script ptest perlnative
 MULTILIB_SCRIPTS = "${PN}-bin:${bindir}/c_rehash"
 
+S = "${WORKDIR}/openssl-${PV}"
 B = "${WORKDIR}/build"
 do_configure[cleandirs] = "${B}"
 
