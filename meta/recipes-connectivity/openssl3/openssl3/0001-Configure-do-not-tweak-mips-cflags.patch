@@ -13,10 +13,10 @@ Signed-off-by: Alexander Kanavin <alex@linutronix.de>
  Configure | 10 ----------
  1 file changed, 10 deletions(-)
 
-Index: openssl-3.0.4/Configure
+Index: openssl3-3.0.4/Configure
 ===================================================================
---- openssl-3.0.4.orig/Configure
-+++ openssl-3.0.4/Configure
+--- openssl3-3.0.4.orig/Configure
++++ openssl3-3.0.4/Configure
 @@ -1423,16 +1423,6 @@ if ($target =~ /^mingw/ && `$config{CC}
          push @{$config{shared_ldflag}}, "-mno-cygwin";
          }

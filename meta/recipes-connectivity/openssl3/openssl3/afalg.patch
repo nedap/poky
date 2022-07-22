@@ -3,10 +3,10 @@ Don't refuse to build afalgeng if cross-compiling or the host kernel is too old.
 Upstream-Status: Submitted [hhttps://github.com/openssl/openssl/pull/7688]
 Signed-off-by: Ross Burton <ross.burton@intel.com>
 
-Index: openssl-3.0.4/Configure
+Index: openssl3-3.0.4/Configure
 ===================================================================
---- openssl-3.0.4.orig/Configure
-+++ openssl-3.0.4/Configure
+--- openssl3-3.0.4.orig/Configure
++++ openssl3-3.0.4/Configure
 @@ -1681,20 +1681,7 @@ $config{CFLAGS} = [ map { $_ eq '--ossl-
  unless ($disabled{afalgeng}) {
      $config{afalgeng}="";
