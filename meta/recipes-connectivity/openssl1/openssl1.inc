@@ -58,7 +58,7 @@ EXTRA_OECONF = " -no-ssl3"
 # }
 
 do_unpack_append() {
-	mv "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
+    mv "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
 }
 
 do_configure_prepend_darwin () {
