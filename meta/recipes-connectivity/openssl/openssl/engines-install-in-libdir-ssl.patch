@@ -1,10 +1,10 @@
 Upstream-Status: Inappropriate [configuration]
 
 
-Index: openssl1-1.0.2/engines/Makefile
+Index: openssl-1.0.2/engines/Makefile
 ===================================================================
---- openssl1-1.0.2.orig/engines/Makefile
-+++ openssl1-1.0.2/engines/Makefile
+--- openssl-1.0.2.orig/engines/Makefile
++++ openssl-1.0.2/engines/Makefile
 @@ -107,13 +107,13 @@ install:
  	@[ -n "$(INSTALLTOP)" ] # should be set by top Makefile...
  	@if [ -n "$(SHARED_LIBS)" ]; then \
@@ -35,10 +35,10 @@ Index: openssl1-1.0.2/engines/Makefile
  		done; \
  	fi
  	@target=install; $(RECURSIVE_MAKE)
-Index: openssl1-1.0.2/engines/ccgost/Makefile
+Index: openssl-1.0.2/engines/ccgost/Makefile
 ===================================================================
---- openssl1-1.0.2.orig/engines/ccgost/Makefile
-+++ openssl1-1.0.2/engines/ccgost/Makefile
+--- openssl-1.0.2.orig/engines/ccgost/Makefile
++++ openssl-1.0.2/engines/ccgost/Makefile
 @@ -47,7 +47,7 @@ install:
  		pfx=lib; \
  		if expr "$(PLATFORM)" : "Cygwin" >/dev/null; then \

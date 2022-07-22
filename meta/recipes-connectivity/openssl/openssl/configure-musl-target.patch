@@ -3,10 +3,10 @@ Add musl triplet support
 Upstream-Status: Pending
 Signed-off-by: Khem Raj <raj.khem@gmail.com>
 
-Index: openssl1-1.0.2a/Configure
+Index: openssl-1.0.2a/Configure
 ===================================================================
---- openssl1-1.0.2a.orig/Configure
-+++ openssl1-1.0.2a/Configure
+--- openssl-1.0.2a.orig/Configure
++++ openssl-1.0.2a/Configure
 @@ -431,7 +431,7 @@ my %table=(
  #
  #       ./Configure linux-armv4 -march=armv6 -D__ARM_MAX_ARCH__=8

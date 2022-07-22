@@ -1,7 +1,7 @@
 Fix the parallel races in the Makefiles.
 
 This patch was taken from the Gentoo packaging:
-https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-libs/openssl/files/openssl1-1.0.2g-parallel-build.patch
+https://gitweb.gentoo.org/repo/gentoo.git/plain/dev-libs/openssl/files/openssl-1.0.2g-parallel-build.patch
 
 Upstream-Status: Pending
 Signed-off-by: Ross Burton <ross.burton@intel.com>
@@ -9,8 +9,8 @@ Signed-off-by: Ross Burton <ross.burton@intel.com>
 Refreshed for 1.0.2i
 Signed-off-by: Patrick Ohly <patrick.ohly@intel.com>
 
---- openssl1-1.0.2g/crypto/Makefile
-+++ openssl1-1.0.2g/crypto/Makefile
+--- openssl-1.0.2g/crypto/Makefile
++++ openssl-1.0.2g/crypto/Makefile
 @@ -85,11 +85,11 @@
  	@if [ -z "$(THIS)" ]; then $(MAKE) -f $(TOP)/Makefile reflect THIS=$@; fi
  
@@ -52,8 +52,8 @@ Signed-off-by: Patrick Ohly <patrick.ohly@intel.com>
  
  lint:
  	@target=lint; $(RECURSIVE_MAKE)
---- openssl1-1.0.2g/engines/Makefile
-+++ openssl1-1.0.2g/engines/Makefile
+--- openssl-1.0.2g/engines/Makefile
++++ openssl-1.0.2g/engines/Makefile
 @@ -72,7 +72,7 @@
  
  all:	lib subdirs
@@ -81,8 +81,8 @@ Signed-off-by: Patrick Ohly <patrick.ohly@intel.com>
  
  tags:
  	ctags $(SRC)
---- openssl1-1.0.2g/Makefile.org
-+++ openssl1-1.0.2g/Makefile.org
+--- openssl-1.0.2g/Makefile.org
++++ openssl-1.0.2g/Makefile.org
 @@ -279,17 +279,17 @@
  build_libssl: build_ssl libssl.pc
  
@@ -116,8 +116,8 @@ Signed-off-by: Patrick Ohly <patrick.ohly@intel.com>
  	@set -e; liblist="$(LIBS)"; for i in $$liblist ;\
  	do \
  		if [ -f "$$i" ]; then \
---- openssl1-1.0.2g/Makefile.shared
-+++ openssl1-1.0.2g/Makefile.shared
+--- openssl-1.0.2g/Makefile.shared
++++ openssl-1.0.2g/Makefile.shared
 @@ -105,6 +105,7 @@
      SHAREDFLAGS="$${SHAREDFLAGS:-$(CFLAGS) $(SHARED_LDFLAGS)}"; \
      LIBPATH=`for x in $$LIBDEPS; do echo $$x; done | sed -e 's/^ *-L//;t' -e d | uniq`; \
@@ -134,8 +134,8 @@ Signed-off-by: Patrick Ohly <patrick.ohly@intel.com>
  			( $(SET_X); rm -f $$SHLIB$$SHLIB_SUFFIX; \
  			  ln -s $$prev $$SHLIB$$SHLIB_SUFFIX ); \
  		fi; \
---- openssl1-1.0.2g/test/Makefile
-+++ openssl1-1.0.2g/test/Makefile
+--- openssl-1.0.2g/test/Makefile
++++ openssl-1.0.2g/test/Makefile
 @@ -144,7 +144,7 @@
  tags:
  	ctags $(SRC)

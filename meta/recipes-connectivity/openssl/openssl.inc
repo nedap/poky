@@ -9,11 +9,11 @@ LICENSE = "openssl"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=f9a8f968107345e0b75aa8c2ecaa7ec8"
 
 DEPENDS = "makedepend-native hostperl-runtime-native"
-DEPENDS_append_class-target = " openssl1-native"
+DEPENDS_append_class-target = " openssl-native"
 
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz \
           "
-S = "${WORKDIR}/openssl1-${PV}"
+S = "${WORKDIR}/openssl-${PV}"
 
 PACKAGECONFIG[perl] = ",,,"
 
@@ -32,37 +32,25 @@ EXTRA_OEMAKE = "-e MAKEFLAGS="
 
 inherit pkgconfig siteinfo multilib_header ptest
 
-PACKAGES =+ "libcrypto1 libssl1 ${PN}-misc openssl1-conf"
-FILES_libcrypto1 = "${libdir}/libcrypto${SOLIBS}"
-FILES_libssl1 = "${libdir}/libssl${SOLIBS}"
+PACKAGES =+ "libcrypto libssl ${PN}-misc openssl-conf"
+FILES_libcrypto = "${libdir}/libcrypto${SOLIBS}"
+FILES_libssl = "${libdir}/libssl${SOLIBS}"
 FILES_${PN} =+ " ${libdir}/ssl/*"
 FILES_${PN}-misc = "${libdir}/ssl/misc"
 RDEPENDS_${PN}-misc = "${@bb.utils.contains('PACKAGECONFIG', 'perl', 'perl', '', d)}"
 
-# Add the openssl.cnf file to the openssl1-conf package.  Make the libcrypto
+# Add the openssl.cnf file to the openssl-conf package.  Make the libcrypto
 # package RRECOMMENDS on this package.  This will enable the configuration
-# file to be installed for both the base openssl1 package and the libcrypto
-# package since the base openssl1 package depends on the libcrypto package.
-FILES_openssl1-conf = "${sysconfdir}/ssl/openssl.cnf"
-CONFFILES_openssl1-conf = "${sysconfdir}/ssl/openssl.cnf"
-RRECOMMENDS_libcrypto1 += "openssl1-conf"
+# file to be installed for both the base openssl package and the libcrypto
+# package since the base openssl package depends on the libcrypto package.
+FILES_openssl-conf = "${sysconfdir}/ssl/openssl.cnf"
+CONFFILES_openssl-conf = "${sysconfdir}/ssl/openssl.cnf"
+RRECOMMENDS_libcrypto += "openssl-conf"
 RDEPENDS_${PN}-ptest += "${PN}-misc make perl perl-module-filehandle bc"
 
 # Remove this to enable SSLv3. SSLv3 is defaulted to disabled due to the POODLE
 # vulnerability
 EXTRA_OECONF = " -no-ssl3"
-
-# python do_unpack_append() {
-# 	pv = d.getVar("PV", True)
-#     os.rename("openssl-{}".format(pv), "openssl1-{}".format(pv))
-# }
-
-do_unpack_extra() {
-	rsync -au "${WORKDIR}/openssl-${PV}/" "${WORKDIR}/openssl1-${PV}/"
-	rm -rf "${WORKDIR}/openssl-${PV}/"
-}
-
-addtask unpack_extra after do_unpack before do_patch
 
 do_configure_prepend_darwin () {
 	sed -i -e '/version-script=openssl\.ld/d' Configure
@@ -70,7 +58,7 @@ do_configure_prepend_darwin () {
 
 do_configure () {
 	cd util
-perl	 perlpath.pl ${STAGING_BINDIR_NATIVE}
+	perl perlpath.pl ${STAGING_BINDIR_NATIVE}
 	cd ..
 	ln -sf apps/openssl.pod crypto/crypto.pod ssl/ssl.pod doc/
 

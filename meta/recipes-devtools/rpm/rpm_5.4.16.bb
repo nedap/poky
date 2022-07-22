@@ -287,7 +287,8 @@ PACKAGECONFIG[beecrypt] = "--with-beecrypt=external,--with-beecrypt=internal,bee
 
 # --with-usecrypto= setting defined the item as the preferred system
 # crypto engine, which will take priority over the included beecrypt
-PACKAGECONFIG[openssl] = "--with-openssl --with-usecrypto=openssl,--without-openssl,openssl1,"
+PREFERRED_VERSION_openssl = "1.0.2j"
+PACKAGECONFIG[openssl] = "--with-openssl --with-usecrypto=openssl,--without-openssl,openssl,"
 PACKAGECONFIG[nss] = "--with-nss --with-usecrypto=nss,--without-nss,nss,"
 PACKAGECONFIG[gcrypt] = "--with-gcrypt --with-usecrypto=gcrypt,--without-gcrypt,gcrypt,"
 
