@@ -255,3 +255,6 @@ CVE_VERSION_SUFFIX = "alphabetical"
 # Only affects OpenSSL >= 1.1.1 in combination with Apache < 2.4.37
 # Apache in meta-webserver is already recent enough
 CVE_CHECK_IGNORE += "CVE-2019-0190"
+
+SYSROOT_DIRS = ''
+SYSROOT_DIRS_NATIVE = ''
