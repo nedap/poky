@@ -13,7 +13,7 @@ DEPENDS_append_class-target = " openssl1-native"
 
 SRC_URI = "http://www.openssl.org/source/openssl-${PV}.tar.gz \
           "
-S = "${WORKDIR}/openssl-${PV}"
+S = "${WORKDIR}/openssl1-${PV}"
 
 PACKAGECONFIG[perl] = ",,,"
 
