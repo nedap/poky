@@ -52,8 +52,9 @@ RDEPENDS_${PN}-ptest += "${PN}-misc make perl perl-module-filehandle bc"
 # vulnerability
 EXTRA_OECONF = " -no-ssl3"
 
-do_unpack_append () {
-	mv ${WORKDIR}/openssl-${PV} ${WORKDIR}/openssl1-${PV}
+python do_unpack_append() {
+	pv = d.getVar("PV", True)
+    os.rename("openssl-{}".format(pv), "openssl1-{}".format(pv))
 }
 
 do_configure_prepend_darwin () {
