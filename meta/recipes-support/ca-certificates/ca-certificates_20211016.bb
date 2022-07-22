@@ -9,10 +9,10 @@ LIC_FILES_CHKSUM = "file://debian/copyright;md5=ae5b36b514e3f12ce1aa8e2ee67f3d7e
 
 # This is needed to ensure we can run the postinst at image creation time
 DEPENDS = ""
-DEPENDS_class-native = "openssl-native"
-DEPENDS_class-nativesdk = "openssl-native"
+DEPENDS_class-native = "openssl3-native"
+DEPENDS_class-nativesdk = "openssl3-native"
 # Need rehash from openssl and run-parts from debianutils
-PACKAGE_WRITE_DEPS += "openssl-native debianutils-native"
+PACKAGE_WRITE_DEPS += "openssl3-native debianutils-native"
 
 SRCREV = "07de54fdcc5806bde549e1edf60738c6bccf50e8"
 
@@ -83,8 +83,8 @@ do_install_append_class-native () {
     SYSROOT="${D}${base_prefix}" ${D}${sbindir}/update-ca-certificates
 }
 
-RDEPENDS_${PN}_append_class-target = " openssl"
-RDEPENDS_${PN}_append_class-native = " openssl-native"
-RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl"
+RDEPENDS_${PN}_append_class-target = " openssl3"
+RDEPENDS_${PN}_append_class-native = " openssl3-native"
+RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl3"
 
 BBCLASSEXTEND = "native nativesdk"
