@@ -57,9 +57,11 @@ EXTRA_OECONF = " -no-ssl3"
 #     os.rename("openssl-{}".format(pv), "openssl1-{}".format(pv))
 # }
 
-do_unpack_append() {
-    mv "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
+do_unpack_extra() {
+	mv "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
 }
+
+addtask unpack_extra after do_unpack before do_patch
 
 do_configure_prepend_darwin () {
 	sed -i -e '/version-script=openssl\.ld/d' Configure
