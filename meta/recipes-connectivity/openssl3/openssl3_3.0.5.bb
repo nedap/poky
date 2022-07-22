@@ -45,6 +45,13 @@ CFLAGS_append_class-nativesdk = " -DOPENSSLDIR=/not/builtin -DENGINESDIR=/not/bu
 # The default is to trust upstream choices.
 DEPRECATED_CRYPTO_FLAGS ?= ""
 
+do_unpack_extra () {
+	rsync -au "${WORKDIR}/openssl-${PV}/" S = "${WORKDIR}/openssl3-${PV}"
+	rm -rf "${WORKDIR}/openssl-${PV}"
+}
+addtask unpack_extra after do_unpack before do_patch
+
+
 do_configure () {
 	# When we upgrade glibc but not uninative we see obtuse failures in openssl. Make
 	# the issue really clear that perl isn't functional due to symbol mismatch issues.
