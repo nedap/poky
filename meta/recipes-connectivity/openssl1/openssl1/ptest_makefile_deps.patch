@@ -7,9 +7,9 @@ Upstream-Status: Inappropriate [config]
 
 Signed-off-by: Maxin B. John <maxin.john@intel.com>
 
-diff -Naur openssl-1.0.2d-orig/test/Makefile openssl-1.0.2d/test/Makefile
---- openssl-1.0.2d-orig/test/Makefile	2015-09-28 12:50:41.530022979 +0300
-+++ openssl-1.0.2d/test/Makefile	2015-09-28 12:57:45.930717240 +0300
+diff -Naur openssl1-1.0.2d-orig/test/Makefile openssl1-1.0.2d/test/Makefile
+--- openssl1-1.0.2d-orig/test/Makefile	2015-09-28 12:50:41.530022979 +0300
++++ openssl1-1.0.2d/test/Makefile	2015-09-28 12:57:45.930717240 +0300
 @@ -155,67 +155,67 @@
  	( $(MAKE) $$i && echo "PASS: $$i" ) || echo "FAIL: $$i"; \
  	done)

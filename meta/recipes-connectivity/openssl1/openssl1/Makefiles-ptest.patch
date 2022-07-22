@@ -5,10 +5,10 @@ Signed-off-by: Anders Roxell <anders.roxell@enea.com>
 Signed-off-by: Maxin B. John <maxin.john@enea.com>
 Upstream-Status: Pending
 ---
-Index: openssl-1.0.2/Makefile.org
+Index: openssl1-1.0.2/Makefile.org
 ===================================================================
---- openssl-1.0.2.orig/Makefile.org
-+++ openssl-1.0.2/Makefile.org
+--- openssl1-1.0.2.orig/Makefile.org
++++ openssl1-1.0.2/Makefile.org
 @@ -451,8 +451,16 @@ rehash.time: certs apps
  test:   tests
  
@@ -27,10 +27,10 @@ Index: openssl-1.0.2/Makefile.org
  	OPENSSL_CONF=apps/openssl.cnf util/opensslwrap.sh version -a
  
  report:
-Index: openssl-1.0.2/test/Makefile
+Index: openssl1-1.0.2/test/Makefile
 ===================================================================
---- openssl-1.0.2.orig/test/Makefile
-+++ openssl-1.0.2/test/Makefile
+--- openssl1-1.0.2.orig/test/Makefile
++++ openssl1-1.0.2/test/Makefile
 @@ -137,7 +137,7 @@ tests:	exe apps $(TESTS)
  apps:
  	@(cd ..; $(MAKE) DIRS=apps all)

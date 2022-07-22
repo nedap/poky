@@ -1,7 +1,7 @@
-Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/Configure
+Index: openssl1-1.0.2~beta1.obsolete.0.0498436515490575/Configure
 ===================================================================
---- openssl-1.0.2~beta1.obsolete.0.0498436515490575.orig/Configure	2014-02-24 21:02:30.000000000 +0100
-+++ openssl-1.0.2~beta1.obsolete.0.0498436515490575/Configure	2014-02-24 21:02:30.000000000 +0100
+--- openssl1-1.0.2~beta1.obsolete.0.0498436515490575.orig/Configure	2014-02-24 21:02:30.000000000 +0100
++++ openssl1-1.0.2~beta1.obsolete.0.0498436515490575/Configure	2014-02-24 21:02:30.000000000 +0100
 @@ -1651,6 +1651,8 @@
  		}
  	}
@@ -11,10 +11,10 @@ Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/Configure
  open(IN,'<Makefile.org') || die "unable to read Makefile.org:$!\n";
  unlink("$Makefile.new") || die "unable to remove old $Makefile.new:$!\n" if -e "$Makefile.new";
  open(OUT,">$Makefile.new") || die "unable to create $Makefile.new:$!\n";
-Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/openssl.ld
+Index: openssl1-1.0.2~beta1.obsolete.0.0498436515490575/openssl.ld
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ openssl-1.0.2~beta1.obsolete.0.0498436515490575/openssl.ld	2014-02-24 22:19:08.601827266 +0100
++++ openssl1-1.0.2~beta1.obsolete.0.0498436515490575/openssl.ld	2014-02-24 22:19:08.601827266 +0100
 @@ -0,0 +1,4615 @@
 +OPENSSL_1.0.0 {
 +	global:
@@ -4631,10 +4631,10 @@ Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/openssl.ld
 +		SSL_test_functions;
 +} OPENSSL_1.0.1d;
 +
-Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/engines/openssl.ld
+Index: openssl1-1.0.2~beta1.obsolete.0.0498436515490575/engines/openssl.ld
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ openssl-1.0.2~beta1.obsolete.0.0498436515490575/engines/openssl.ld	2014-02-24 21:02:30.000000000 +0100
++++ openssl1-1.0.2~beta1.obsolete.0.0498436515490575/engines/openssl.ld	2014-02-24 21:02:30.000000000 +0100
 @@ -0,0 +1,10 @@
 +OPENSSL_1.0.0 {
 +	global:
@@ -4646,10 +4646,10 @@ Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/engines/openssl.ld
 +		*;
 +};
 +
-Index: openssl-1.0.2~beta1.obsolete.0.0498436515490575/engines/ccgost/openssl.ld
+Index: openssl1-1.0.2~beta1.obsolete.0.0498436515490575/engines/ccgost/openssl.ld
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ openssl-1.0.2~beta1.obsolete.0.0498436515490575/engines/ccgost/openssl.ld	2014-02-24 21:02:30.000000000 +0100
++++ openssl1-1.0.2~beta1.obsolete.0.0498436515490575/engines/ccgost/openssl.ld	2014-02-24 21:02:30.000000000 +0100
 @@ -0,0 +1,10 @@
 +OPENSSL_1.0.0 {
 +	global:

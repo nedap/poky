@@ -10,10 +10,10 @@ Upstream-Status: Inappropriate [config]
 
 Signed-off-by: Paul Eggleton <paul.eggleton@linux.intel.com>
 
-Index: openssl-1.0.2/test/Makefile
+Index: openssl1-1.0.2/test/Makefile
 ===================================================================
---- openssl-1.0.2.orig/test/Makefile
-+++ openssl-1.0.2/test/Makefile
+--- openssl1-1.0.2.orig/test/Makefile
++++ openssl1-1.0.2/test/Makefile
 @@ -330,7 +330,7 @@ test_cms: ../apps/openssl$(EXE_EXT) cms-
  	@echo "CMS consistency test"
  	$(PERL) cms-test.pl

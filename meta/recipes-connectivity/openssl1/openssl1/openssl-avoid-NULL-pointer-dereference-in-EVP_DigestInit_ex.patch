@@ -8,10 +8,10 @@ http://www.mail-archive.com/openssl-dev@openssl.org/msg32860.html
 
 Signed-off-by: Xufeng Zhang <xufeng.zhang@windriver.com>
 ---
-Index: openssl-1.0.2h/crypto/evp/digest.c
+Index: openssl1-1.0.2h/crypto/evp/digest.c
 ===================================================================
---- openssl-1.0.2h.orig/crypto/evp/digest.c
-+++ openssl-1.0.2h/crypto/evp/digest.c
+--- openssl1-1.0.2h.orig/crypto/evp/digest.c
++++ openssl1-1.0.2h/crypto/evp/digest.c
 @@ -211,7 +211,7 @@ int EVP_DigestInit_ex(EVP_MD_CTX *ctx, c
          type = ctx->digest;
      }

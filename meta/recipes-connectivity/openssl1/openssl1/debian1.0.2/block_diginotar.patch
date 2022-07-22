@@ -14,10 +14,10 @@ Upstream-Status: Backport [debian]
 
 Signed-off-by: Armin Kuster <akuster@mvista.com>
 
-Index: openssl-1.0.2g/crypto/x509/x509_vfy.c
+Index: openssl1-1.0.2g/crypto/x509/x509_vfy.c
 ===================================================================
---- openssl-1.0.2g.orig/crypto/x509/x509_vfy.c
-+++ openssl-1.0.2g/crypto/x509/x509_vfy.c
+--- openssl1-1.0.2g.orig/crypto/x509/x509_vfy.c
++++ openssl1-1.0.2g/crypto/x509/x509_vfy.c
 @@ -119,6 +119,7 @@ static int check_trust(X509_STORE_CTX *c
  static int check_revocation(X509_STORE_CTX *ctx);
  static int check_cert(X509_STORE_CTX *ctx);
