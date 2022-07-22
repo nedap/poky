@@ -58,7 +58,7 @@ EXTRA_OECONF = " -no-ssl3"
 # }
 
 do_unpack_extra() {
-	rsync -a "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
+	rsync -a "${WORKDIR}/openssl-${PV}/" "${WORKDIR}/openssl1-${PV}/"
 }
 
 addtask unpack_extra after do_unpack before do_patch
