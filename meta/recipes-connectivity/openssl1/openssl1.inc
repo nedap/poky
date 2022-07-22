@@ -58,7 +58,7 @@ EXTRA_OECONF = " -no-ssl3"
 # }
 
 do_unpack_extra() {
-	mv "${WORKDIR}/openssl-${PV}" "${WORKDIR}/openssl1-${PV}"
+	mv "${WORKDIR}/openssl-${PV}/*" "${WORKDIR}/openssl1-${PV}"
 }
 
 addtask unpack_extra after do_unpack before do_patch
