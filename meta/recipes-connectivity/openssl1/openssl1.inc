@@ -52,6 +52,10 @@ RDEPENDS_${PN}-ptest += "${PN}-misc make perl perl-module-filehandle bc"
 # vulnerability
 EXTRA_OECONF = " -no-ssl3"
 
+do_unpack_append () {
+	mv ${WORKDIR}/openssl-${PV} ${WORKDIR}/openssl1-${PV}
+}
+
 do_configure_prepend_darwin () {
 	sed -i -e '/version-script=openssl\.ld/d' Configure
 }
