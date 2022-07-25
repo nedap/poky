@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://debian/copyright;md5=ae5b36b514e3f12ce1aa8e2ee67f3d7e
 DEPENDS = ""
 DEPENDS_class-native = "openssl3-native"
 DEPENDS_class-nativesdk = "openssl3-native"
-# Need c_rehash from openssl and run-parts from debianutils
+# Need rehash from openssl and run-parts from debianutils
 PACKAGE_WRITE_DEPS += "openssl3-native debianutils-native"
 
 SRCREV = "07de54fdcc5806bde549e1edf60738c6bccf50e8"
@@ -22,7 +22,7 @@ SRC_URI = "git://salsa.debian.org/debian/ca-certificates.git;protocol=https;bran
            file://default-sysroot.patch \
            file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
            file://0001-Revert-mozilla-certdata2pem.py-print-a-warning-for-e.patch \
-           file://0004-update-ca-certificates-use-c-rehash-instead-of-openssl-rehash.patch \
+           file://0004-update-ca-certificates-use-busybox-compatible-options.patch \
            "
 UPSTREAM_CHECK_GITTAGREGEX = "(?P<pver>\d+)"
 
@@ -83,7 +83,7 @@ do_install_append_class-native () {
     SYSROOT="${D}${base_prefix}" ${D}${sbindir}/update-ca-certificates
 }
 
-RDEPENDS_${PN}_append_class-target = " openssl3"
+RDEPENDS_${PN}_append_class-target = " openssl3-bin openssl3"
 RDEPENDS_${PN}_append_class-native = " openssl3-native"
 RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl3"
 

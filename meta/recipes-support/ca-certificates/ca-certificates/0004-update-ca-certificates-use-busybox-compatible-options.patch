@@ -1,0 +1,15 @@
+diff --git a/sbin/update-ca-certificates b/sbin/update-ca-certificates
+index dc76cd4..0010f86 100755
+--- a/sbin/update-ca-certificates
++++ b/sbin/update-ca-certificates
+@@ -115,8 +115,8 @@ trap cleanup 0
+ # Helper files.  (Some of them are not simple arrays because we spawn
+ # subshells later on.)
+ TEMPBUNDLE="${ETCCERTSDIR}/${CERTBUNDLE}.new"
+-ADDED="$(mktemp --tmpdir "ca-certificates.tmp.XXXXXX")"
+-REMOVED="$(mktemp --tmpdir "ca-certificates.tmp.XXXXXX")"
++ADDED="$(mktemp -p "ca-certificates.tmp.XXXXXX")"
++REMOVED="$(mktemp -p "ca-certificates.tmp.XXXXXX")"
+ 
+ # Adds a certificate to the list of trusted ones.  This includes a symlink
+ # in /etc/ssl/certs to the certificate file and its inclusion into the
