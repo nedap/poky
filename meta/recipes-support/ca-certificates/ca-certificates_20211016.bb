@@ -11,7 +11,7 @@ LIC_FILES_CHKSUM = "file://debian/copyright;md5=ae5b36b514e3f12ce1aa8e2ee67f3d7e
 DEPENDS = ""
 DEPENDS_class-native = "openssl3-native"
 DEPENDS_class-nativesdk = "openssl3-native"
-# Need rehash from openssl and run-parts from debianutils
+# Need c_rehash from openssl and run-parts from debianutils
 PACKAGE_WRITE_DEPS += "openssl3-native debianutils-native"
 
 SRCREV = "07de54fdcc5806bde549e1edf60738c6bccf50e8"
