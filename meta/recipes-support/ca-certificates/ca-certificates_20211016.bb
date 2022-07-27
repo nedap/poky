@@ -4,27 +4,25 @@ SSL-based applications to check for the authenticity of SSL connections. \
 This derived from Debian's CA Certificates."
 HOMEPAGE = "http://packages.debian.org/sid/ca-certificates"
 SECTION = "misc"
-LICENSE = "GPL-2.0+ & MPL-2.0"
+LICENSE = "GPL-2.0-or-later & MPL-2.0"
 LIC_FILES_CHKSUM = "file://debian/copyright;md5=ae5b36b514e3f12ce1aa8e2ee67f3d7e"
 
 # This is needed to ensure we can run the postinst at image creation time
 DEPENDS = ""
-DEPENDS_class-native = "openssl-native"
-DEPENDS_class-nativesdk = "openssl-native"
-# Need c_rehash from openssl and run-parts from debianutils
-PACKAGE_WRITE_DEPS += "openssl-native debianutils-native"
+DEPENDS_class-native = "openssl3-native"
+DEPENDS_class-nativesdk = "openssl3-native"
+# Need rehash from openssl and run-parts from debianutils
+PACKAGE_WRITE_DEPS += "openssl3-native debianutils-native"
 
-SRCREV = "b3a8980b781bc9a370e42714a605cd4191bb6c0b"
+SRCREV = "07de54fdcc5806bde549e1edf60738c6bccf50e8"
 
-SRC_URI = "git://salsa.debian.org/debian/ca-certificates.git;protocol=https \
-           file://0001-update-ca-certificates-don-t-use-Debianisms-in-run-p.patch \
+SRC_URI = "git://salsa.debian.org/debian/ca-certificates.git;protocol=https;branch=master \
            file://0002-update-ca-certificates-use-SYSROOT.patch \
-           file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
-           file://0004-update-ca-certificates-use-c-rehash-instead-of-openssl-rehash.patch \
-           file://update-ca-certificates-support-Toybox.patch \
+           file://0001-update-ca-certificates-don-t-use-Debianisms-in-run-p.patch \
            file://default-sysroot.patch \
-           file://sbindir.patch \
-           file://0001-certdata2pem.py-use-python3.patch \
+           file://0003-update-ca-certificates-use-relative-symlinks-from-ET.patch \
+           file://0001-Revert-mozilla-certdata2pem.py-print-a-warning-for-e.patch \
+           file://0004-update-ca-certificates-use-busybox-compatible-options.patch \
            "
 UPSTREAM_CHECK_GITTAGREGEX = "(?P<pver>\d+)"
 
@@ -85,6 +83,8 @@ do_install_append_class-native () {
     SYSROOT="${D}${base_prefix}" ${D}${sbindir}/update-ca-certificates
 }
 
-RDEPENDS_${PN} += "openssl"
+RDEPENDS_${PN}_append_class-target = " openssl3-bin openssl3"
+RDEPENDS_${PN}_append_class-native = " openssl3-native"
+RDEPENDS_${PN}_append_class-nativesdk = " nativesdk-openssl3"
 
 BBCLASSEXTEND = "native nativesdk"
