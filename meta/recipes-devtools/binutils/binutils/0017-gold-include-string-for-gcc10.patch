@@ -1,0 +1,29 @@
+From 8993e43b8f4d78947db9b18f0e8af804c0f4c4ac Mon Sep 17 00:00:00 2001
+From: Nick Clifton <nickc@redhat.com>
+Date: Tue, 24 Sep 2019 09:08:00 +0000
+Subject: [PATCH] gold: Fix building gold with gcc 10
+
+gold/errors.h uses std::string through debug.h include chains, but
+descriptors.cc didn't include <string> explicitly.
+
+Upstream-Status: Backport [https://sourceware.org/pipermail/binutils/2019-September/108179.html]
+Signed-off-by: Nick Clifton <nickc@redhat.com>
+
+---
+ gold/descriptors.cc | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/gold/descriptors.cc b/gold/descriptors.cc
+index 92fd42f41f..d5cc9fc4c9 100644
+--- a/gold/descriptors.cc
++++ b/gold/descriptors.cc
+@@ -26,6 +26,7 @@
+ #include <cstdio>
+ #include <cstring>
+ #include <fcntl.h>
++#include <string>
+ #include <unistd.h>
+ 
+ #include "debug.h"
+-- 
+2.23.0

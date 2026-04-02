@@ -35,6 +35,8 @@ SRC_URI = "\
      file://0013-fix-the-incorrect-assembling-for-ppc-wait-mnemonic.patch \
      file://0014-Detect-64-bit-MIPS-targets.patch \
      file://0015-sync-with-OE-libtool-changes.patch \
+     file://0016-binutils-drop-redundant-program_name-definitions.patch \
+     file://0017-gold-include-string-for-gcc10.patch \
      file://CVE-2018-8945.patch \
      file://CVE-2018-7643.patch \
      file://CVE-2018-6872.patch \ 

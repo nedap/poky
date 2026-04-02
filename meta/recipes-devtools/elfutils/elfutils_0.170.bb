@@ -25,6 +25,7 @@ SRC_URI = "https://sourceware.org/elfutils/ftp/${PV}/${BP}.tar.bz2 \
            file://debian/0003-Add-mips-n64-relocation-format-hack.patch \
            file://0001-Use-fallthrough-attribute.patch \
            file://0001-Ensure-that-packed-structs-follow-the-gcc-memory-lay.patch \
+           file://0009-libelf-Mark-both-fsize-and-msize-with-const-attribut.patch \
            "
 SRC_URI_append_libc-musl = " file://0008-build-Provide-alternatives-for-glibc-assumptions-hel.patch"
 SRC_URI[md5sum] = "03599aee98c9b726c7a732a2dd0245d5"
@@ -34,8 +35,8 @@ inherit autotools gettext
 
 EXTRA_OECONF = "--program-prefix=eu- --without-lzma"
 EXTRA_OECONF_append_class-native = " --without-bzlib"
-CFLAGS_append_class-native = " -Wno-error=missing-attributes"
-CFLAGS_append_class-nativesdk = " -Wno-error=missing-attributes"
+CFLAGS_append_class-native = " -Wno-error=missing-attributes -Wno-error=array-parameter"
+CFLAGS_append_class-nativesdk = " -Wno-error=missing-attributes -Wno-error=array-parameter"
 
 do_install_append() {
 	if [ "${TARGET_ARCH}" != "x86_64" ] && [ -z `echo "${TARGET_ARCH}"|grep 'i.86'` ];then
