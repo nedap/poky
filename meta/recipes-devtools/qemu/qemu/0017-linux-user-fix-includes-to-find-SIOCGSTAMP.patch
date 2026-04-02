@@ -1,0 +1,30 @@
+From a893c94e98766752b3f7d406060527e4c856c8de Mon Sep 17 00:00:00 2001
+From: Daniel P. Berrange <berrange@redhat.com>
+Date: Mon, 17 Jun 2019 11:40:05 +0100
+Subject: [PATCH] linux-user: fix includes to find SIOCGSTAMP with latest
+ kernel headers
+
+Backport of the upstream QEMU fix that includes linux/sockios.h so
+SIOCGSTAMP and SIOCGSTAMPNS resolve with newer kernel headers.
+
+Upstream-Status: Backport
+
+Signed-off-by: Daniel P. Berrange <berrange@redhat.com>
+---
+ linux-user/syscall.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/linux-user/syscall.c b/linux-user/syscall.c
+index b187c1281d..f13e260b02 100644
+--- a/linux-user/syscall.c
++++ b/linux-user/syscall.c
+@@ -40,6 +40,7 @@ int __clone2(int (*fn)(void *), void *child_stack_base,
+ #endif
+ #include <sys/socket.h>
+ #include <sys/un.h>
++#include <linux/sockios.h>
+ #include <sys/uio.h>
+ #include <poll.h>
+ #include <sys/times.h>
+-- 
+2.21.0

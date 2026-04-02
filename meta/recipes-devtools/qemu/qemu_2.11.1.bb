@@ -32,6 +32,8 @@ UPSTREAM_CHECK_REGEX = "qemu-(?P<pver>\d+\..*)\.tar"
 SRC_URI_append_class-native = " \
             file://0014-fix-libcap-header-issue-on-some-distro.patch \
             file://0015-cpus.c-Add-error-messages-when-qemi_cpu_kick_thread-.patch \
+            file://0016-linux-user-conditionally-define-gettid.patch \
+            file://0017-linux-user-fix-includes-to-find-SIOCGSTAMP.patch \
             "
 
 SRC_URI[md5sum] = "61cf862b6007eba4ac98247776af2e27"
