@@ -14,13 +14,11 @@ Signed-off-by: Nick Clifton <nickc@redhat.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/gold/errors.h b/gold/errors.h
-index b4ccd4d722..8f6f486dd4 100644
+index 7e0e7c52d0..f1a902db44 100644
 --- a/gold/errors.h
 +++ b/gold/errors.h
-@@ -25,6 +25,7 @@
+@@ -22,6 +22,7 @@
  #include <cstdarg>
- #include <vector>
- #include <cstdio>
 +#include <string>
  #include "gold-threads.h"
  
