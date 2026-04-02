@@ -3,7 +3,6 @@ require pseudo.inc
 SRC_URI = "git://git.yoctoproject.org/pseudo \
            file://fallback-passwd \
            file://fallback-group \
-           file://moreretries.patch \
            file://toomanyfiles.patch \
            "
 
