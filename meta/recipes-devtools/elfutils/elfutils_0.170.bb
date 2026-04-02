@@ -25,7 +25,6 @@ SRC_URI = "https://sourceware.org/elfutils/ftp/${PV}/${BP}.tar.bz2 \
            file://debian/0003-Add-mips-n64-relocation-format-hack.patch \
            file://0001-Use-fallthrough-attribute.patch \
            file://0001-Ensure-that-packed-structs-follow-the-gcc-memory-lay.patch \
-           file://0009-libelf-Mark-both-fsize-and-msize-with-const-attribut.patch \
            "
 SRC_URI_append_libc-musl = " file://0008-build-Provide-alternatives-for-glibc-assumptions-hel.patch"
 SRC_URI[md5sum] = "03599aee98c9b726c7a732a2dd0245d5"
