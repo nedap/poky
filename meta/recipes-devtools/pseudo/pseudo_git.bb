@@ -3,7 +3,6 @@ require pseudo.inc
 SRC_URI = "git://git.yoctoproject.org/pseudo \
            file://fallback-passwd \
            file://fallback-group \
-           file://toomanyfiles.patch \
            "
 
 SRCREV = "750362cc7b9fa58dffccd95d919b435c6d8ac614"
