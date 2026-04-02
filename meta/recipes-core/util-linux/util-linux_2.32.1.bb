@@ -22,9 +22,11 @@ CACHED_CONFIGUREVARS += "scanf_cv_alloc_modifier=ms"
 
 EXTRA_OECONF_class-native = "${SHARED_EXTRA_OECONF} \
                              --disable-fallocate \
+                             --disable-raw \
 			     --disable-use-tty-group \
 "
 EXTRA_OECONF_class-nativesdk = "${SHARED_EXTRA_OECONF} \
                                 --disable-fallocate \
+                                --disable-raw \
 				--disable-use-tty-group \
 "

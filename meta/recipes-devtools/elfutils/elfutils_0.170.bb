@@ -34,6 +34,8 @@ inherit autotools gettext
 
 EXTRA_OECONF = "--program-prefix=eu- --without-lzma"
 EXTRA_OECONF_append_class-native = " --without-bzlib"
+CFLAGS_append_class-native = " -Wno-error=missing-attributes"
+CFLAGS_append_class-nativesdk = " -Wno-error=missing-attributes"
 
 do_install_append() {
 	if [ "${TARGET_ARCH}" != "x86_64" ] && [ -z `echo "${TARGET_ARCH}"|grep 'i.86'` ];then
