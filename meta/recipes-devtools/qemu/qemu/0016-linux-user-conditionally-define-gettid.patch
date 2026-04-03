@@ -38,19 +38,20 @@ index 7071f52584..fe980328b2 100755
 +fi
 +
 +
- ##########################################
- # spice probe
- if test "$spice" != "no" ; then
-@@ -6647,6 +6662,9 @@ fi
- if test "$splice" = "yes" ; then
-   echo "CONFIG_SPLICE=y" >> $config_host_mak
- fi
+##########################################
+# spice probe
+if test "$spice" != "no" ; then
+@@ -5770,6 +5785,9 @@ if test "$accept4" = "yes" ; then
+fi
+if test "$splice" = "yes" ; then
+  echo "CONFIG_SPLICE=y" >> $config_host_mak
+fi
 +if test "$gettid" = "yes" ; then
 +  echo "CONFIG_GETTID=y" >> $config_host_mak
 +fi
- if test "$eventfd" = "yes" ; then
-   echo "CONFIG_EVENTFD=y" >> $config_host_mak
- fi
+if test "$eventfd" = "yes" ; then
+  echo "CONFIG_EVENTFD=y" >> $config_host_mak
+fi
 diff --git a/linux-user/syscall.c b/linux-user/syscall.c
 index 208fd1813d..70eb0d64f4 100644
 --- a/linux-user/syscall.c
