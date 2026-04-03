@@ -1,0 +1,28 @@
+From c73881ac3b67764b9564da13bc6f0e2f6554afc8 Mon Sep 17 00:00:00 2001
+From: Codex <codex@example.com>
+Date: Fri, 3 Apr 2026 08:06:21 +0200
+Subject: [PATCH] linux-user: handle missing stime on newer glibc
+
+---
+ linux-user/syscall.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/linux-user/syscall.c b/linux-user/syscall.c
+index 11c9116..2d5306c 100644
+--- a/linux-user/syscall.c
++++ b/linux-user/syscall.c
+@@ -8182,7 +8182,11 @@ abi_long do_syscall(void *cpu_env, int num, abi_long arg1,
+             time_t host_time;
+             if (get_user_sal(host_time, arg1))
+                 goto efault;
+-            ret = get_errno(stime(&host_time));
++#ifdef __NR_stime
++            ret = get_errno(syscall(__NR_stime, &host_time));
++#else
++            ret = -TARGET_ENOSYS;
++#endif
+         }
+         break;
+ #endif
+-- 
+2.43.0
