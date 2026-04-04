@@ -67,7 +67,14 @@ do_configure[depends] += "${COMPILERDEP}"
 do_compile () {
 	for d in libgcc ${RUNTIMETARGET}; do
 		cd ${B}/${TARGET_SYS}/$d/
-		oe_runmake MULTIBUILDTOP=${B}/${TARGET_SYS}/$d/
+		# GCC 7 libgcc sporadically emits empty _satfract*.o objects under high
+		# parallelism on modern hosts; build that subdir serially and keep the
+		# remaining runtime libraries on the normal jobserver.
+		if [ "$d" = "libgcc" ]; then
+			oe_runmake -j1 MULTIBUILDTOP=${B}/${TARGET_SYS}/$d/
+		else
+			oe_runmake MULTIBUILDTOP=${B}/${TARGET_SYS}/$d/
+		fi
 	done
 }
 
